@@ -1,3 +1,6 @@
+const Redux = require ('redux')
+const {createStore, combineReducers} = Redux
+
 const criarContrato = (nome,valor) => {
     return ({
         type: "CRIAR_CONTRATO",
@@ -53,3 +56,12 @@ const listaDeContratosReducer = (listaDeContratos = [], acao) => {
     }
     return listaDeContratos
 }
+
+const todosOsReducers = combineReducers({
+    historicoDePedidosCashbackReducer, 
+    manipularCaixaReducer,
+    listaDeContratosReducer
+})
+
+const store = createStore(todosOsReducers)
+
