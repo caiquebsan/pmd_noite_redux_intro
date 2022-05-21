@@ -49,9 +49,9 @@ const manipularCaixaReducer = (valorEmCaixa = 0, acao) => {
 
 const listaDeContratosReducer = (listaDeContratos = [], acao) => {
     if(acao.type === "CRIAR_CONTRATO")
-        return [...listaDeContratos, acao.payload.nome]
+        return [...listaDeContratos, acao.payload]
     if(acao.type === "CANCELAR_CONTRATO"){
-        var listaDeContratosAlterada = listaDeContratos.filter((e) => { e === acao.valor.nome?false:true })
+        var listaDeContratosAlterada = listaDeContratos.filter((e) => { e === acao.nome?false:true })
         return listaDeContratosAlterada
     }
     return listaDeContratos
@@ -65,3 +65,27 @@ const todosOsReducers = combineReducers({
 
 const store = createStore(todosOsReducers)
 
+//criar um contrato para o jose
+const acaoContratoJose = criarContrato('Jose', 50)
+store.dispatch(acaoContratoJose)
+console.log("Estado centralizado: " + store.getState())
+
+//criar um contrato para a maria
+const acaoContratoMaria = criarContrato('Maria', 50)
+store.dispatch(acaoContratoMaria)
+console.log("Estado centralizado: " + store.getState())
+
+//pedido de cashback para jose de 10
+const acaoCashbackJose = solicitarCashback("Jose", 10)
+store.dispatch(acaoCashbackJose)
+console.log("Estado centralizado: " + store.getState())
+
+//pedido de cashback para maria de 20
+const acaoCashbackMaria = solicitarCashback("Maria", 20)
+store.dispatch(acaoCashbackMaria)
+console.log("Estado centralizado: " + store.getState())
+
+//cancelar o contrato da maria
+const acaoCancelarContratoMaria = cancelarContrato("Maria")
+store.dispatch(acaoCancelarContratoMaria)
+console.log("Estado centralizado: " + store.getState())
